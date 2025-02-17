@@ -81,15 +81,20 @@ def delete_post(id: int):
             my_posts.remove(i)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-print(len(my_posts))
-
-class Demo:
-    def __init__(self, x):
-        self.x = x
-    def __call__(self, x):
-        return x + 1
+@app.put("/posts/{id}")
+def update_post(id: int, post: Post):
+    # return {
+    #     "message": "Successfully updated",
+    #     "post": post
+    #     # "post": post.model_dump()
+    # }
     
-add_one = Demo(9)
-print(add_one(9))
+    for i in my_posts:
+        if i["id"] == id:
+            i = post.model_dump()
+            return {
+                "message": "Successfully updated",
+                "post": i
+            }
 
     
